@@ -17,6 +17,8 @@ public class StoreService {
 	
 	public Store locateClosestStoreToCoords(double latitude, double longitude) {
 		Store store = lcboClient.getStoresNearPoints(latitude, longitude).getResult().get(0);
+		if (store!=null)
+			store.Incorporate();
 		logger.warn("STORE_ID" + store.getId());
 		return store;
 	}

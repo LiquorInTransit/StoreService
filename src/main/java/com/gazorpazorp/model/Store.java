@@ -1,18 +1,6 @@
 package com.gazorpazorp.model;
 
-import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Embedded;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,6 +16,9 @@ public class Store {
 	@JsonAlias("postal_code")
 	private String postalCode;
 	
+	@Embedded
+	private Location location;
+	
 	
 	public Store() {}
 	
@@ -37,7 +28,25 @@ public class Store {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	public void Incorporate() {
+		location = new Location();
+		location.setAddress(this.address);
+		location.setCity(this.city);
+		location.setLatitude(this.latitude);
+		location.setLongitude(this.longitude);
+		location.setPostalCode(this.postalCode);
+	}
+	
+	
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	public double getLatitude() {
 		return latitude;
 	}
@@ -45,6 +54,7 @@ public class Store {
 		this.latitude = latitude;
 	}
 
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	public double getLongitude() {
 		return longitude;
 	}
@@ -52,6 +62,7 @@ public class Store {
 		this.longitude = longitude;
 	}
 
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	public String getAddress() {
 		return address;
 	}
@@ -59,6 +70,7 @@ public class Store {
 		this.address = address;
 	}
 
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	public String getCity() {
 		return city;
 	}
@@ -66,6 +78,7 @@ public class Store {
 		this.city = city;
 	}
 
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	public String getPostalCode() {
 		return postalCode;
 	}
