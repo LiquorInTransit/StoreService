@@ -16,7 +16,13 @@ public class StoreService {
 	LCBOFeignClient lcboClient;
 	
 	public Store locateClosestStoreToCoords(double latitude, double longitude) {
-		Store store = lcboClient.getStoresNearPoints(latitude, longitude).getResult().get(0);
+		Store store = new Store();//lcboClient.getStoresNearPoints(latitude, longitude).getResult().get(0);
+		store.setCity("Cambridge");
+		store.setAddress("120 Cedar St.");
+		store.setId(new Long(382));
+		store.setLatitude(43.3526762);
+		store.setLongitude(-80.3319758);
+		store.setPostalCode("N1S1W4");
 		if (store!=null)
 			store.Incorporate();
 		logger.warn("STORE_ID" + store.getId());
